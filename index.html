@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Noted — Minimal Markdown Notes</title>
+  <meta name="description" content="Local‑first notes with tags, wiki links, backlinks, and a command palette." />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="rainbow">Noted</h1>
+    <span class="muted">Write Markdown. Use #tags and [[Wiki Links]].</span>
+  </header>
+
+  <main class="app">
+    <div class="shell">
+      <aside class="panel sidebar" aria-label="Notes list">
+        <div class="sb-top">
+          <input id="search" class="input" type="search" placeholder="Search notes (Ctrl/⌘K)" autocomplete="off" />
+          <button id="newBtn" class="btn primary" title="New note (N)">✚</button>
+        </div>
+        <div class="sb-top" style="border-top:1px solid var(--border);">
+          <select id="filter" title="Filter">
+            <option value="all">All</option>
+            <option value="pinned">Pinned</option>
+            <option value="untagged">Untagged</option>
+            <option value="trash">Trash</option>
+          </select>
+          <select id="tagFilter" title="Filter by tag">
+            <option value=""># Tag</option>
+          </select>
+          <button id="sortBtn" class="btn small" title="Sort Updated → Title → Created">↕ Sort</button>
+        </div>
+        <div id="list" class="list" aria-live="polite"></div>
+        <div class="sb-actions">
+          <button id="exportBtn" class="btn ghost">Export</button>
+          <label class="btn ghost" for="importFile">Import<input id="importFile" type="file" accept="application/json" hidden></label>
+          <button id="resetBtn" class="btn ghost" title="Danger: wipe all">Reset</button>
+        </div>
+      </aside>
+
+      <section class="panel editor" aria-label="Editor">
+        <div class="tool">
+          <input id="title" class="input title-edit" type="text" placeholder="Untitled" />
+          <span id="status" class="muted">Saved</span>
+          <span class="spacer"></span>
+          <button id="pinBtn" class="btn small">📌 Pin</button>
+          <button id="delBtn" class="btn small">🗑️ Trash</button>
+        </div>
+        <div class="modebar">
+          <button class="chip active" data-mode="edit">Edit</button>
+          <button class="chip" data-mode="preview">Preview</button>
+          <span class="muted">Use [[Wiki Links]] and #tags in your text.</span>
+        </div>
+        <div class="pane active" id="pane-edit">
+          <textarea id="body" class="textarea" placeholder="# Welcome to Noted
+
+- Type your thoughts here.
+- Use #tags to organize.
+- Link notes with [[Wiki Links]].
+- Checkboxes: - [ ] todo, - [x] done.
+
+---
+
+**Pro tip:** Press Ctrl/⌘+S to save."></textarea>
+        </div>
+        <div class="pane" id="pane-preview">
+          <div id="preview" class="preview"></div>
+        </div>
+        <div class="backlinks">
+          <div class="muted" id="backlinks">No backlinks yet.</div>
+        </div>
+        <div class="footer">
+          <div class="muted" id="meta">Add #tags to categorize. Links: [[Title of another note]]</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button id="dailyBtn" class="btn small">📅 Daily</button>
+            <button id="duplicateBtn" class="btn small">⎘ Duplicate</button>
+            <button id="purgeBtn" class="btn small" title="Empty trash">🧹 Empty Trash</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="palette" class="palette" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="palette-box">
+      <input id="palInput" type="text" placeholder="Type a command or search… (Esc to close)"/>
+      <div id="palList" class="pal-list"></div>
+    </div>
+  </div>
+
+  <noscript>Enable JavaScript to use Noted.</noscript>
+  <script src="app.js"></script>
+</body>
+</html>
